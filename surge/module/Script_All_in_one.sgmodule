@@ -26,7 +26,7 @@ URL-REGEX,^https?:\/\/api\.rr\.tv\/(?:ad\/getAll$|storage/business/rootName/app/
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 
 [Script]
-# >DNSpod
+# > DNSpod
 DNSpod = type=dns,script-path=https://raw.githubusercontent.com/langkhach270389/Scripting/master/Surge/dnspod.js,script-update-interval=0
 
 # Chavy box js (http://boxjs.com, https://8.8.8.8, https://1.1.1.1)
