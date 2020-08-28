@@ -17,6 +17,14 @@ URL-REGEX,^https?:\/\/api\.rr\.tv\/(?:ad\/getAll$|storage/business/rootName/app/
 ^https?:\/\/.+?\.amemv\.com\/aweme\/v\d\/general\/search\/single\/ https://aweme.snssdk.com/aweme/v1/general/search/single/ header
 ^https?:\/\/.+?\.amemv\.com\/aweme\/v\d\/hot/search\/video\/list\/ https://aweme.snssdk.com/aweme/v1/hot/search/video/list/ header
 
+# > TikTok Unlock
+(?<=_region=)CN(?=&) JP 307
+(?<=&app_version=)17..(?=.?.?&) 1 307
+(?<=\?version_code=)17..(?=.?.?&) 1 307
+
+# > Redirect Google Service
+^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
+
 [Script]
 # Chavy box js (http://boxjs.com, https://8.8.8.8, https://1.1.1.1)
 Rewrite: BoxJs = type=http-request,pattern=^https://8.8.8.8(/api|/home|/sub|/my|/app|/log|/revert)?($|\/),script-path=https://gitee.com/chavyleung/scripts/raw/master/chavy.box.js,requires-body=true,max-size=0,timeout=120
@@ -60,4 +68,4 @@ http-response https://api.zhihu.com/people/ script-path=https://raw.githubuserco
 http-request https?://link.zhihu.com/\?target= script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20link.js, requires-body=true, timeout=10, tag=知乎
 
 [MITM]
-hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,api.bilibili.com,app.bilibili.com,api.live.bilibili.com,www.zhihu.com,api.zhihu.com,link.zhihu.com,118.89.204.198
+hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,api.bilibili.com,app.bilibili.com,api.live.bilibili.com,www.zhihu.com,api.zhihu.com,link.zhihu.com,118.89.204.198,%APPEND% *.tiktokv.com,*.byteoversea.com,*.musical.ly,*.snssdk.com
