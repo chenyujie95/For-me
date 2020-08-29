@@ -7,6 +7,23 @@
 AND,((USER-AGENT,PUClient*), (NOT,((DOMAIN-SUFFIX,rr.tv)))),REJECT
 URL-REGEX,^https?:\/\/api\.rr\.tv\/(?:ad\/getAll$|storage/business/rootName/app/homePage),REJECT
 
+# > 京东 去启动广告
+URL-REGEX,^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$,REJECT-TINYGIF
+
+# > 哔哩哔哩 去广告 
+URL-REGEX,https://app.bilibili.com/x/v2/(splash|search/(defaultword|square)),REJECT
+URL-REGEX,https://api.bilibili.com/x/v2/dm/ad,REJECT
+
+# > 知乎 去广告
+//SOME MCN INFO MAY BE USEFUL
+//URL-REGEX,https://www.zhihu.com/api/v4/mcn/,REJECT
+DOMAIN,appcloud2.zhihu.com,REJECT
+//DO NOT GET CDN-BASED IP
+DOMAIN,118.89.204.198,REJECT
+USER-AGENT,AVOS*,REJECT
+URL-REGEX,https://api.zhihu.com/(ad|drama|fringe|commercial|market/popover|search/(top|preset|tab)|.*featured-comment-ad),REJECT
+AND,((USER-AGENT,ZhihuHybrid*), (URL-REGEX,.*recommend)),REJECT
+
 [URL Rewrite]
 # > Choler (抖音)
 ^https?:\/\/.+?\.amemv\.com\/aweme\/v\d\/feed\/ https://aweme.snssdk.com/aweme/v1/feed/ header
@@ -54,15 +71,6 @@ Bahamut.js = requires-body=1,script-path=https://raw.githubusercontent.com/NobyD
 Bahamut.js = requires-body=1,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Bahamut.js,type=http-response,pattern=https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v3\/token\.php
 91.js = requires-body=1,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/91ShortVideo.js,type=http-response,pattern=“^https?:\/\/.+\.(my10api|(.*91.*))\.(com|tips|app|xyz)(:\d{2,5})?\/api.php$”
 
-# > 哔哩哔哩（精简&去广告）
-http-response https://app.bilibili.com/x/v2/space\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20space.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://app.bilibili.com/x/resource/show/tab\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20tab.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://app.bilibili.com/x/v2/feed/index\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20feed.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://app.bilibili.com/x/v2/account/mine\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20account.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://app.bilibili.com/x/v2/view\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20view%20relate.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://api.bilibili.com/x/v2/reply/main\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20reply.js, requires-body=true, timeout=10, tag=bilibili
-http-response https://api.live.bilibili.com/xlive/app-room/v1/index/getInfoByRoom\?access_key script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20bilibili%20live.js, requires-body=true, timeout=10, tag=bilibili
-
 # > 知乎（去广告）
 http-response https://api.zhihu.com/moments/recommend script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20feed.js, requires-body=true, timeout=10, tag=知乎
 http-response https://api.zhihu.com/topstory/recommend script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20recommend.js, requires-body=true, timeout=10, tag=知乎
@@ -71,4 +79,4 @@ http-response https://api.zhihu.com/people/ script-path=https://raw.githubuserco
 http-request https?://link.zhihu.com/\?target= script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20link.js, requires-body=true, timeout=10, tag=知乎
 
 [MITM]
-hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,api.bilibili.com,app.bilibili.com,api.live.bilibili.com,www.zhihu.com,api.zhihu.com,link.zhihu.com,118.89.204.198,%APPEND% *.tiktokv.com,*.byteoversea.com,*.musical.ly,*.snssdk.com
+hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,www.zhihu.com,api.zhihu.com,link.zhihu.com,appcloud2.zhihu.com,118.89.204.198,%APPEND% *.tiktokv.com,*.byteoversea.com,*.musical.ly,*.snssdk.com,app.bilibili.com,api.bilibili.com
