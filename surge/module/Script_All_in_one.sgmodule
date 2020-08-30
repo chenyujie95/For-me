@@ -43,9 +43,6 @@ AND,((USER-AGENT,ZhihuHybrid*), (URL-REGEX,.*recommend)),REJECT
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 
 [Script]
-# > DNSpod
-DNSpod = type=dns,script-path=https://raw.githubusercontent.com/langkhach270389/Scripting/master/Surge/dnspod.js,script-update-interval=0
-
 # > Chavy boxjs (http://boxjs.com, https://8.8.8.8, https://1.1.1.1)
 Rewrite: BoxJs = type=http-request,pattern=^https://8.8.8.8(/api|/home|/sub|/my|/app|/log|/revert)?($|\/),script-path=https://gitee.com/chavyleung/scripts/raw/master/chavy.box.js,requires-body=true,max-size=0,timeout=120
 Rewrite: BoxJs = type=http-request,pattern=^https?://1.1.1.1(/api|/home|/sub|/my|/app|/log|/revert)?($|\/),script-path=https://gitee.com/chavyleung/scripts/raw/master/chavy.box.js,requires-body=true,max-size=0,timeout=120
@@ -70,7 +67,7 @@ rrsp_banner = type=http-response,requires-body=true,pattern=^https?:\/\/api\.rr\
 Bahamut.js = requires-body=1,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Bahamut.js,type=http-request,pattern=https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v3\/token\.php
 Bahamut.js = requires-body=1,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Bahamut.js,type=http-response,pattern=https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v3\/token\.php
 
-# > 知乎去广告
+# > onewayticket255（知乎去广告）
 http-response https://api.zhihu.com/moments/recommend script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20feed.js, requires-body=true, timeout=10, tag=知乎
 http-response https://api.zhihu.com/topstory/recommend script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20recommend.js, requires-body=true, timeout=10, tag=知乎
 http-response https://api.zhihu.com/v4/questions script-path=https://raw.githubusercontent.com/onewayticket255/Surge-Script/master/surge%20zhihu%20answer.js, requires-body=true, timeout=10, tag=知乎
