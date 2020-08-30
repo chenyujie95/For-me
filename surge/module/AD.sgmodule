@@ -1,3 +1,7 @@
+#!name=Ad Module
+#!desc=iOS Rewrite 模块配置
+#!system=ios
+
 [URL Rewrite]
 # 115离线
 ^http:\/\/115\.com\/\?ct=sign$ http://115.com/lx?taskdg=1 header
