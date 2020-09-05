@@ -29,4 +29,3 @@ V2EX(签到) = type=cron,cronexp=0 0 9 * * *,wake-system=1,script-path=https://r
 
 腾讯视频(签到) = type=cron,cronexp=0 20 9 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/videoqq/videoqq.js,script-update-interval=0
 
-Dler Cloud(本地JS) = type=cron,cronexp=0 0 22 * * *,wake-system=1,script-path=Dler Cloud.js
