@@ -30,12 +30,6 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/s
 ^https?:\/\/.+?\.amemv\.com\/aweme\/v\d\/general\/search\/single\/ https://aweme.snssdk.com/aweme/v1/general/search/single/ header
 ^https?:\/\/.+?\.amemv\.com\/aweme\/v\d\/hot/search\/video\/list\/ https://aweme.snssdk.com/aweme/v1/hot/search/video/list/ header
 
-# > TikTok Unlock
-(?<=_region=)CN(?=&) JP 307
-(?<=\?version_code=)1[6-9]..(?=.?.?&) 100. 307
-(?<=&app_version=)1[6-9]..(?=.?.?&) 100. 307
-^https://api[\w-]*?.tiktokv.com/aweme/v\d/policy/notice/? - reject
-
 # > Redirect Google Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 
@@ -99,4 +93,4 @@ http-response https://api.live.bilibili.com/xlive/app-room/v1/index/getInfoByRoo
 Bili Region = type=http-response,pattern=https:\/\/api\.bilibili\.com\/pgc\/view\/app\/season\?access_key,requires-body=1,max-size=0,control-api=1,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Bili_Auto_Regions.js
 
 [MITM]
-hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,%APPEND% mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,%INSERT% *sg.tiktokv.com,*a.tiktokv.com,*.byteoversea.com,*.musical.ly,*.snssdk.com,%APPEND% www.bilibili.com,api.bilibili.com,app.bilibili.com,api.live.bilibili.com,%APPEND% sub.store,%APPEND% mb3admin.com,%APPEND% www.zhihu.com,api.zhihu.com,zhuanlan.zhihu.com,homepage-api.smzdm.com, haojia-api.smzdm.com, article-api.smzdm.com,weixin110.qq.com
+hostname = %INSERT%,8.8.8.8,1.1.1.1,%INSERT% api.weibo.cn,mapi.weibo.com,*.uve.weibo.com,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,%APPEND% mp.weixin.qq.com,%APPEND% *.amemv.com,%APPEND% api.rr.tv,api.gamer.com.tw,*.byteoversea.com,*.musical.ly,*.snssdk.com,%APPEND% www.bilibili.com,api.bilibili.com,app.bilibili.com,api.live.bilibili.com,%APPEND% sub.store,%APPEND% mb3admin.com,%APPEND% www.zhihu.com,api.zhihu.com,zhuanlan.zhihu.com,homepage-api.smzdm.com, haojia-api.smzdm.com, article-api.smzdm.com,weixin110.qq.com
