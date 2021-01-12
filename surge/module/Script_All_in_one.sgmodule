@@ -54,7 +54,7 @@ https://zhuanlan\.zhihu\.com/api/articles/\d+/recommendation _ reject
 
 [Map Local]
 # 知乎去除最常访问
-^https?:\/\/api\.zhihu\.com\/moments\/recent data="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/blank.json"
+^https?:\/\/api\.zhihu\.com\/moments\/recent data="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/blank/blank_dict.json"
 
 [Script]
 # > Chavy boxjs (http://boxjs.com, https://8.8.8.8, https://1.1.1.1)
