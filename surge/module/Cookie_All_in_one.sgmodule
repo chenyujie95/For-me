@@ -28,12 +28,6 @@ http-request https:\/\/www\.52pojie\.cn\/home\.php\? script-path=https://raw.git
 # 百度贴吧 （c.tieba.baidu.com）
 http-request https?:\/\/(c\.tieba\.baidu\.com|180\.97\.\d+\.\d+)\/c\/s\/login script-path=https://raw.githubusercontent.com/NobyDa/Script/master/BDTieBa-DailyBonus/TieBa.js, tag=tieba
 
-# 什么值得买（*.smzdm.com）
-http-request ^https:\/\/www\.smzdm\.com\/?.? script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/smzdm/smzdm.cookie.js, tag=smzdm
-
-# V2ex（*.v2ex.com)
-v2ex.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/v2ex/v2ex.cookie.js,type=http-request,pattern=^https:\/\/www\.v2ex\.com\/mission\/daily
-
 # 喜马拉雅 (mobwsa.ximalaya.com)
 ximalaya.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/ximalaya/ximalaya.cookie.js,type=http-request,pattern=^https?:\/\/.*\/mobile\-user\/homePage\/.*
 
@@ -41,4 +35,4 @@ ximalaya.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/sc
 everphoto.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/everphoto/everphoto.cookie.js,type=http-request,pattern=^https:\/\/api.everphoto.cn\/users\/self\/checkin\/v2
 
 [MITM]
-hostname = %INSERT%,api.m.jd.com,ifac*.iqiyi.com,*.bilibili.com,music.163.com,*.video.qq.com,*.rr.tv,www.52pojie.cn,c.tieba.baidu.com,*.smzdm.com,*.v2ex.com,mobwsa.ximalaya.com,api.everphoto.cn
+hostname = %INSERT%,api.m.jd.com,ifac*.iqiyi.com,*.bilibili.com,music.163.com,*.video.qq.com,*.rr.tv,www.52pojie.cn,c.tieba.baidu.com,mobwsa.ximalaya.com,api.everphoto.cn
