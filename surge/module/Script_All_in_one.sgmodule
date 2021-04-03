@@ -2,8 +2,6 @@
 #!desc=iOS Script 模块配置
 #!system=ios
 
-[General]
-force-http-engine-hosts = %APPEND% api-h2.tiktokv.com:443,api.tiktokv.com:443
 
 [Rule]
 
@@ -63,10 +61,6 @@ https://www\.zhihu\.com/api/v4/hot_recommendation _ reject
 https://www\.zhihu\.com/commercial_api/banners_v3/mobile_banner _ reject
 https://zhuanlan\.zhihu\.com/api/articles/\d+/recommendation _ reject
 
-# 什么值得买
-^https?:\/\/haojia\.m\.smzdm\.com\/detail_modul\/banner - reject
-^https?:\/\/api\.smzdm\.com\/v\d\/util\/(banner|loading) - reject
-^https?:\/\/app-api\.smzdm\.com\/util\/loading - reject
 
 [Header Rewrite]
 # 知乎（部分替换为手机百度 Quark 的 User-Agent）
