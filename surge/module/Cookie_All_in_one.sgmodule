@@ -16,9 +16,6 @@ http-request ^https:\/\/music.163.com\/weapi\/user\/level script-path=https://ra
 # 腾讯视频 (*.video.qq.com)
 http-request ^https:\/\/access.video.qq.com\/user\/auth_refresh script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/videoqq/videoqq.cookie.js, tag=videoqq
 
-# 人人视频 (*.rr.tv)
-http-request ^https:\/\/api\.rr\.tv\/user\/profile script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/rrtv/rrtv.cookie.js, tag=rrtv
-
 # 吾爱破解 (www.52pojie.cn)
 http-request https:\/\/www\.52pojie\.cn\/home\.php\? script-path=https://raw.githubusercontent.com/NobyDa/Script/master/52pojie-DailyBonus/52pojie.js, tag=52pojie
 
@@ -32,4 +29,4 @@ ximalaya.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/sc
 everphoto.cookie.js = script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/everphoto/everphoto.cookie.js,type=http-request,pattern=^https:\/\/api.everphoto.cn\/users\/self\/checkin\/v2
 
 [MITM]
-hostname = %INSERT%,api.m.jd.com,ifac*.iqiyi.com,music.163.com,*.video.qq.com,*.rr.tv,www.52pojie.cn,c.tieba.baidu.com,mobwsa.ximalaya.com,api.everphoto.cn
+hostname = %INSERT%,api.m.jd.com,ifac*.iqiyi.com,music.163.com,*.video.qq.com,www.52pojie.cn,c.tieba.baidu.com,mobwsa.ximalaya.com,api.everphoto.cn
