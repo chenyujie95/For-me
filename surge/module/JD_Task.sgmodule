@@ -1,4 +1,5 @@
 #!name=Cron Task
+#!desc=京东Tasks 模块配置
 #!system=ios
 
 [Script]
