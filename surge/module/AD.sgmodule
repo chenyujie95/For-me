@@ -70,11 +70,6 @@
 ^(http|https):\/\/(www.)?yuanchengxiezuo\.com\/ https://www.teamviewer.com/ 302
 ^(http|https):\/\/(www.)?zbrushcn.com/ https://pixologic.com/ 302
 
-# TikTok (By wzw1997007) - *.tiktokv.com, *.byteoversea.com, *.musical.ly, *.snssdk.com
-# (?<=_region=)CN(?=&) JP 307
-# (?<=&app_version=)1[6-9]..(?=.?.?&) 1 307
-# (?<=&app_version=)1[6-9]..(?=.?.?&) 1 307
-
 #Resso (By JO2EY) - api.resso.app
 # (?<=(carrier|account|sys|sim)_region=)cn in 307
 
@@ -121,12 +116,6 @@
 ^(http|https):\/\/api\.bjxkhc\.com\/index\.php\/app\/ios\/ads\/ - reject
 
 # B
-# > ByteDance - *.amemv.com,*.snssdk.com
-^(http|https):\/\/[\w-]+\.(amemv|musical|snssdk|tiktokv)\.(com|ly)\/(api|motor)\/ad\/ - reject
-^(http|https):\/\/[\w-]+\.snssdk\.com\/.+_ad\/ - reject
-^(http|https):\/\/[\w-]+\.snssdk\.com\/motor\/operation\/activity\/display\/config\/V2\/ - reject
-^(http|https):\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/img\/ad\.union\.api\/ - reject
-^(http|https):\/\/dsp\.toutiao\.com\/api\/xunfei\/ads\/ - reject
 # ---(Baidu)---
 # > Baidu NetDisk - issuecdn.baidupcs.com
 ^(http|https):\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adx - reject
