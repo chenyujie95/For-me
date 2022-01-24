@@ -29,4 +29,4 @@ weixin110.js = type=http-response,requires-body=1,max-size=-1,pattern=^https?:\/
 
 
 [MITM]
-hostname = %INSERT%,8.8.8.8,1.1.1.1,trade-acs.m.taobao.com,api.m.jd.com,ios.prod.ftl.netflix.com,%APPEND% mp.weixin.qq.com,%APPEND% sub.store,%APPEND% mb3admin.com,weixin110.qq.com
+hostname = %INSERT%, 8.8.8.8,1.1.1.1, trade-acs.m.taobao.com, api.m.jd.com, ios.prod.ftl.netflix.com, api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, %APPEND% mp.weixin.qq.com, %APPEND% sub.store, %APPEND% mb3admin.com, weixin110.qq.com
