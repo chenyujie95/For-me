@@ -32,4 +32,5 @@ payload:
   - DOMAIN-KEYWORD,themoviedb 
   - DOMAIN-KEYWORD,uhdnow 
   - DOMAIN-KEYWORD,mgstage 
-  - DOMAIN-KEYWORD,dmm.co.jp 
+  - DOMAIN-KEYWORD,dmm.co.jp
+  - DOMAIN-KEYWORD,testingcf
