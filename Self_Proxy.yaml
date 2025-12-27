@@ -1,5 +1,5 @@
 payload:
-  # > Special_Proxy
+  # > Self_Proxy
 
   - DOMAIN-KEYWORD,sexemby 
   - DOMAIN-KEYWORD,tmdb 
