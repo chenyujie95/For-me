@@ -1,5 +1,5 @@
 payload:
-  # > Special_Direct
+  # > Self_Direct
 
   - DOMAIN-KEYWORD,DNSPod
   - DOMAIN-KEYWORD,chenyujie
