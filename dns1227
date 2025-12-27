@@ -1,0 +1,24 @@
+dns:
+  enable: true
+  ipv6: false
+  listen: :23453
+  enhanced-mode: redir-host
+  respect-rules: true
+  # Mihomo 启动时解析节点域名使用的 DNS（必须国内的，否则代理起不来）
+  proxy-server-nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+  # 默认国内 DNS（主解析通道）
+  nameserver:
+    - https://doh.pub/dns-query          # 腾讯
+    - https://dns.alidns.com/dns-query   # 阿里
+    - 223.5.5.5                          # 备用纯 IP DNS
+  # 远程（国外）DNS，用于需要走代理的域名
+  nameserver-policy:
+    # Steam 特殊域名使用国内 DNS（防止代理延迟）
+    "+.steampowered.com": "223.5.5.5"
+    # GFW / 境外域名列表（自动通过代理访问）
+    "geosite: gfw":
+      - "https://cloudflare-dns.com/dns-query#Proxy"
+      - "https://dns.google/dns-query#Proxy"
+      - "https://dns.quad9.net/dns-query#Proxy"
