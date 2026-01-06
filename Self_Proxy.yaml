@@ -8,7 +8,6 @@ payload:
   - DOMAIN-KEYWORD,pypi 
   - DOMAIN-KEYWORD,slack 
   - DOMAIN-KEYWORD,pythonhosted 
-  - DOMAIN-KEYWORD,dler.cloud 
   - DOMAIN-KEYWORD,dellupdate 
   - DOMAIN-KEYWORD,hostloc 
   - DOMAIN-KEYWORD,docker 
@@ -35,3 +34,8 @@ payload:
   - DOMAIN-KEYWORD,dmm.co.jp
   - DOMAIN-KEYWORD,testingcf
   - DOMAIN-KEYWORD,shuzijumin
+  - DOMAIN-KEYWORD,poecdn.net
+  - DOMAIN-KEYWORD,quora.com
+  - DOMAIN-KEYWORD,metowolf.com
+  - DOMAIN-KEYWORD,tradingview
+  
