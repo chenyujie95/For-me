@@ -1,13 +1,13 @@
 payload:
   # > Self_Direct
-
+  - IP-CIDR,192.168.31.0/24,no-resolve
   - DOMAIN-KEYWORD,DNSPod
   - DOMAIN-KEYWORD,DNS
   - DOMAIN-KEYWORD,chenyujie
   - DOMAIN-KEYWORD,xiaohongshu
   - DOMAIN-KEYWORD,synology
   - DOMAIN-SUFFIX,chenyujie.net
-  - DOMAIN-KEYWORD,jellyfin
+  - DOMAIN-KEYWORD,jellyfin,no-resolve
   - DOMAIN-KEYWORD,ddns
   - DOMAIN-KEYWORD,hddolby
   - DOMAIN-KEYWORD,hhanclub
@@ -30,6 +30,8 @@ payload:
   - DOMAIN-KEYWORD,bochk
   - DOMAIN-KEYWORD,announce
   - DOMAIN-KEYWORD,torrent
+  
+
   
   
 
