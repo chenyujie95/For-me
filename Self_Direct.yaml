@@ -30,6 +30,28 @@ payload:
   - DOMAIN-KEYWORD,bochk
   - DOMAIN-KEYWORD,announce
   - DOMAIN-KEYWORD,torrent
+# 群晖官方 DDNS 及相关服务
+- DOMAIN-SUFFIX,synology.com,DIRECT
+- DOMAIN-SUFFIX,synology.cn,DIRECT
+- DOMAIN-SUFFIX,quickconnect.to,DIRECT
+
+# DNSPod 及腾讯云 API
+- DOMAIN-SUFFIX,dnsapi.cn,DIRECT
+- DOMAIN-SUFFIX,dnspod.com,DIRECT
+- DOMAIN-SUFFIX,dnspod.cn,DIRECT
+- DOMAIN-SUFFIX,tencentcloudapi.com,DIRECT
+
+# 常用公网 IP 检测服务
+- DOMAIN-SUFFIX,ipify.org,DIRECT
+- DOMAIN-SUFFIX,ifconfig.me,DIRECT
+- DOMAIN-SUFFIX,cip.cc,DIRECT
+- DOMAIN-SUFFIX,3322.net,DIRECT
+- DOMAIN-SUFFIX,3322.org,DIRECT
+- DOMAIN-SUFFIX,ip.sb,DIRECT
+- DOMAIN-SUFFIX,ipinfo.io,DIRECT
+- DOMAIN-SUFFIX,myip.com,DIRECT
+- DOMAIN-SUFFIX,myip.net,DIRECT
+
 
   
   
