@@ -12,14 +12,6 @@ DOMAIN-KEYWORD,audiences
 DOMAIN-KEYWORD,btschool
 DOMAIN-KEYWORD,m-team
 DOMAIN-KEYWORD,tracker
-DOMAIN-KEYWORD,dler.cloud 
-DOMAIN-KEYWORD,go-mpulse
-DOMAIN-KEYWORD,zacks
-DOMAIN-KEYWORD,ibkr
-DOMAIN-KEYWORD,ibllc
-DOMAIN,analytics.meituan.net
-DOMAIN-KEYWORD,launchdarkly.com
-DOMAIN-KEYWORD,schwab.com
 DOMAIN-KEYWORD,livibank.com
 DOMAIN-KEYWORD,wise.com
 DOMAIN-KEYWORD,bochk
@@ -29,6 +21,14 @@ DOMAIN,appsec-mobile.meituan.com
 DOMAIN,httpdns.bilivideo.com
 DOMAIN,cm.bilibili.com
 DOMAIN-KEYWORD,xmancdn
+
+#IBKR DIRECT
+DOMAIN-SUFFIX,ibkr.com.cn
+DOMAIN-SUFFIX,ibllc.com.cn
+DOMAIN-KEYWORD,go-mpulse
+DOMAIN-KEYWORD,zacks
+DOMAIN,analytics.meituan.net
+DOMAIN-KEYWORD,launchdarkly.com
 
 
   
