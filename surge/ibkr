@@ -1,0 +1,24 @@
+#===== IBKR PROXY =====
+DOMAIN-SUFFIX,ibkr.com
+DOMAIN-SUFFIX,ibllc.com
+DOMAIN-SUFFIX,ibkr.com.hk
+DOMAIN-SUFFIX,ibkr.com.au
+DOMAIN-SUFFIX,ibcdn.com
+DOMAIN-SUFFIX,iblink.com
+DOMAIN-SUFFIX,interactivebrokers.com
+DOMAIN-SUFFIX,interactivebrokers.com.hk
+DOMAIN-SUFFIX,interactivebrokers.ca
+DOMAIN-SUFFIX,interactivebrokers.ie
+DOMAIN-SUFFIX,interactivebrokers.co.uk
+DOMAIN-SUFFIX,interactivebrokers.co.in
+DOMAIN-SUFFIX,interactivebrokers.co.in
+DOMAIN-SUFFIX,interactivebrokers.com.sg
+DOMAIN-SUFFIX,interactivebrokers.com.au
+DOMAIN-SUFFIX,ndcdyn.interactivebrokers.com
+DOMAIN-SUFFIX,cdcdyn.interactivebrokers.com
+
+#===== TOS PROXY =====
+DOMAIN-SUFFIX,thinkorswim.com
+DOMAIN-SUFFIX,tdameritrade.com
+DOMAIN-SUFFIX,schwab.com
+HOST,tosmediaserver.schwab.com
