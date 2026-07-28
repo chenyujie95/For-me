@@ -26,7 +26,7 @@ DOMAIN-KEYWORD,api-huacloud
 #IBKR DIRECT
 DOMAIN-SUFFIX,ibkr.com.cn
 DOMAIN-SUFFIX,ibllc.com.cn
-#DOMAIN-KEYWORD,go-mpulse
+DOMAIN-KEYWORD,go-mpulse
 DOMAIN-KEYWORD,zacks
 DOMAIN,analytics.meituan.net
 DOMAIN-KEYWORD,launchdarkly.com
