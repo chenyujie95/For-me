@@ -20,6 +20,7 @@ DOMAIN,httpdns.bilivideo.com
 DOMAIN,cm.bilibili.com
 DOMAIN-KEYWORD,xmancdn
 DOMAIN-KEYWORD,api-huacloud
+DOMAIN-KEYWORD,bochk
 
 #IBKR DIRECT
 DOMAIN-SUFFIX,ibkr.com.cn
