@@ -1,86 +1,121 @@
 /**
- * 115 云下载固定保存目录
+ * UDown / 115 云下载固定目录
  *
- * 目录：转录
+ * 目标目录：转录
  * CID：2409067043602038176
  */
 
 const TARGET_CID = "2409067043602038176";
+const TARGET_NAME = "转录";
 
-const url = $request.url || "";
-let body = $request.body || "";
+const reqHeaders = $request.headers || {};
 
-console.log("========== 115 离线目录脚本 ==========");
-console.log(`[115] URL: ${url}`);
-console.log(`[115] 原始 Body: ${body}`);
+const cookie =
+    reqHeaders["Cookie"] ||
+    reqHeaders["cookie"] ||
+    "";
 
-if (!body) {
-    console.log("[115] Body 为空，无法修改");
-    $done({});
-} else {
-    let newBody = body;
+const userAgent =
+    reqHeaders["User-Agent"] ||
+    reqHeaders["user-agent"] ||
+    "Mozilla/5.0";
 
-    // 判断是否为 JSON
-    const trimmed = body.trim();
+console.log("========== 115 UDown 目录切换 ==========");
+console.log(`[115] 触发请求：${$request.url}`);
+console.log(`[115] 目标目录：${TARGET_NAME}`);
+console.log(`[115] CID：${TARGET_CID}`);
 
-    if (
-        (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
-        (trimmed.startsWith("[") && trimmed.endsWith("]"))
-    ) {
-        try {
-            const json = JSON.parse(body);
+if (!cookie) {
 
-            json.wp_path_id = TARGET_CID;
+    console.log("[115] 未获取到 Cookie，无法修改默认目录");
 
-            // 部分接口同时使用 savepath
-            if ("savepath" in json) {
-                json.savepath = "";
-            }
-
-            newBody = JSON.stringify(json);
-
-            console.log("[115] JSON 请求修改成功");
-        } catch (e) {
-            console.log(`[115] JSON 解析失败: ${e}`);
-        }
-    } else {
-        // application/x-www-form-urlencoded
-
-        if (/(^|&)wp_path_id=[^&]*/.test(newBody)) {
-            newBody = newBody.replace(
-                /(^|&)wp_path_id=[^&]*/g,
-                `$1wp_path_id=${TARGET_CID}`
-            );
-
-            console.log("[115] 已替换 wp_path_id");
-        } else {
-            newBody +=
-                (newBody.endsWith("&") ? "" : "&") +
-                `wp_path_id=${TARGET_CID}`;
-
-            console.log("[115] 原请求无 wp_path_id，已追加");
-        }
-
-        // 如果存在 savepath，则清空
-        if (/(^|&)savepath=[^&]*/.test(newBody)) {
-            newBody = newBody.replace(
-                /(^|&)savepath=[^&]*/g,
-                "$1savepath="
-            );
-        }
-    }
-
-    console.log(`[115] 修改后 Body: ${newBody}`);
-    console.log(`[115] 目标目录 CID: ${TARGET_CID}`);
-
-    // 测试阶段弹一次通知，确认确实命中了脚本
     $notification.post(
-        "115 离线下载",
-        "已切换保存目录",
-        `转录 / ${TARGET_CID}`
+        "115 UDown",
+        "目录切换失败",
+        "没有获取到 115 Cookie"
     );
 
-    $done({
-        body: newBody
+    $done({});
+
+} else {
+
+    const options = {
+        url: "https://webapi.115.com/offine/downpath",
+
+        headers: {
+            "Cookie": cookie,
+            "User-Agent": userAgent,
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "*/*"
+        },
+
+        body: `file_id=${TARGET_CID}`
+    };
+
+    $httpClient.post(options, function(error, response, data) {
+
+        if (error) {
+
+            console.log(`[115] 设置目录请求失败：${error}`);
+
+            $notification.post(
+                "115 UDown",
+                "目录切换失败",
+                String(error)
+            );
+
+            $done({});
+            return;
+        }
+
+        console.log(`[115] HTTP状态：${response.status}`);
+        console.log(`[115] 返回数据：${data}`);
+
+        try {
+
+            const json = JSON.parse(data);
+
+            if (json.state === true) {
+
+                console.log(
+                    `[115] 已成功切换至 ${TARGET_NAME} (${TARGET_CID})`
+                );
+
+                $notification.post(
+                    "115 UDown",
+                    "下载目录切换成功",
+                    `${TARGET_NAME} · ${TARGET_CID}`
+                );
+
+            } else {
+
+                console.log(
+                    `[115] 接口返回失败：${JSON.stringify(json)}`
+                );
+
+                $notification.post(
+                    "115 UDown",
+                    "目录切换失败",
+                    json.error || json.message || data
+                );
+            }
+
+        } catch (e) {
+
+            console.log(`[115] 返回值解析失败：${e}`);
+            console.log(`[115] 原始返回：${data}`);
+
+            $notification.post(
+                "115 UDown",
+                "目录接口返回异常",
+                data || "无返回数据"
+            );
+        }
+
+        /*
+         * 等设置目录接口完成之后，
+         * 再允许 UDown 原本的 task_lists 请求继续。
+         */
+        $done({});
     });
 }
