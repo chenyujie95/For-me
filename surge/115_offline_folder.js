@@ -1,121 +1,480 @@
 /**
- * UDown / 115 云下载固定目录
+ * 115 离线下载 → 固定「转录」目录
  *
- * 目标目录：转录
- * CID：2409067043602038176
+ * CID: 2409067043602038176
  */
 
 const TARGET_CID = "2409067043602038176";
 const TARGET_NAME = "转录";
 
-const reqHeaders = $request.headers || {};
+function getHeader(name) {
+    const headers = $request.headers || {};
 
-const cookie =
-    reqHeaders["Cookie"] ||
-    reqHeaders["cookie"] ||
-    "";
-
-const userAgent =
-    reqHeaders["User-Agent"] ||
-    reqHeaders["user-agent"] ||
-    "Mozilla/5.0";
-
-console.log("========== 115 UDown 目录切换 ==========");
-console.log(`[115] 触发请求：${$request.url}`);
-console.log(`[115] 目标目录：${TARGET_NAME}`);
-console.log(`[115] CID：${TARGET_CID}`);
-
-if (!cookie) {
-
-    console.log("[115] 未获取到 Cookie，无法修改默认目录");
-
-    $notification.post(
-        "115 UDown",
-        "目录切换失败",
-        "没有获取到 115 Cookie"
+    const key = Object.keys(headers).find(
+        k => k.toLowerCase() === name.toLowerCase()
     );
 
-    $done({});
+    return key ? String(headers[key] || "") : "";
+}
+
+function notify(title, subtitle, body) {
+    $notification.post(title, subtitle, body);
+}
+
+function finish() {
+    /*
+     * 非常重要：
+     *
+     * 不再把 taskdg=1 放给原网页，
+     * 防止 UDown 再按照自己的默认目录添加一次。
+     */
+    $done({
+        url: "http://115.com/lx"
+    });
+}
+
+
+// ==============================
+// 读取快捷指令传进来的下载链接
+// ==============================
+
+const requestUrl = $request.url || "";
+
+console.log(`[115] Trigger: ${requestUrl}`);
+
+const match = requestUrl.match(/[?&]u=([^&]+)/);
+
+if (!match) {
+
+    notify(
+        "115 离线下载",
+        "没有找到下载链接",
+        "缺少参数 u"
+    );
+
+    finish();
 
 } else {
 
-    const options = {
-        url: "https://webapi.115.com/offine/downpath",
+    let taskUrl;
 
-        headers: {
-            "Cookie": cookie,
-            "User-Agent": userAgent,
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "*/*"
-        },
+    try {
 
-        body: `file_id=${TARGET_CID}`
-    };
+        taskUrl = decodeURIComponent(match[1]);
 
-    $httpClient.post(options, function(error, response, data) {
+    } catch (e) {
 
-        if (error) {
+        taskUrl = match[1];
+    }
 
-            console.log(`[115] 设置目录请求失败：${error}`);
 
-            $notification.post(
-                "115 UDown",
-                "目录切换失败",
-                String(error)
+    if (
+        !taskUrl.startsWith("magnet:") &&
+        !taskUrl.startsWith("ed2k:")
+    ) {
+
+        notify(
+            "115 离线下载",
+            "链接格式错误",
+            taskUrl.substring(0, 100)
+        );
+
+        finish();
+
+    } else {
+
+        const cookie = getHeader("Cookie");
+
+        const userAgent =
+            getHeader("User-Agent") ||
+            "Mozilla/5.0";
+
+
+        if (!cookie) {
+
+            notify(
+                "115 离线下载",
+                "获取登录状态失败",
+                "115.com 请求中没有 Cookie"
             );
 
-            $done({});
-            return;
-        }
+            finish();
 
-        console.log(`[115] HTTP状态：${response.status}`);
-        console.log(`[115] 返回数据：${data}`);
+        } else {
 
-        try {
+            const commonHeaders = {
 
-            const json = JSON.parse(data);
+                "Cookie": cookie,
 
-            if (json.state === true) {
+                "User-Agent": userAgent,
 
-                console.log(
-                    `[115] 已成功切换至 ${TARGET_NAME} (${TARGET_CID})`
-                );
+                "Accept":
+                    "application/json, text/javascript, */*; q=0.01",
 
-                $notification.post(
-                    "115 UDown",
-                    "下载目录切换成功",
-                    `${TARGET_NAME} · ${TARGET_CID}`
-                );
+                "Content-Type":
+                    "application/x-www-form-urlencoded",
 
-            } else {
+                "Origin":
+                    "https://115.com",
 
-                console.log(
-                    `[115] 接口返回失败：${JSON.stringify(json)}`
-                );
+                "Referer":
+                    "https://115.com/"
+            };
 
-                $notification.post(
-                    "115 UDown",
-                    "目录切换失败",
-                    json.error || json.message || data
+
+            // ==========================
+            // 第一次：
+            // 直接指定 wp_path_id 添加
+            // ==========================
+
+            const directBody = [
+                "url=" + encodeURIComponent(taskUrl),
+                "savepath=",
+                "wp_path_id=" + TARGET_CID
+            ].join("&");
+
+
+            const addOptions = {
+
+                url:
+                    "https://115.com/web/lixian/" +
+                    "?ct=lixian&ac=add_task_url",
+
+                headers: commonHeaders,
+
+                body: directBody
+            };
+
+
+            console.log("[115] 尝试直接创建离线任务");
+            console.log(`[115] CID=${TARGET_CID}`);
+
+
+            $httpClient.post(
+                addOptions,
+
+                function(error, response, data) {
+
+                    if (!error) {
+
+                        try {
+
+                            const json = JSON.parse(data);
+
+                            if (json.state === true) {
+
+                                notify(
+                                    "115 离线下载成功",
+                                    `已保存到「${TARGET_NAME}」`,
+                                    `CID：${TARGET_CID}`
+                                );
+
+                                finish();
+
+                                return;
+                            }
+
+                        } catch (_) {}
+                    }
+
+
+                    /*
+                     * 某些账号/API要求 sign、time、uid，
+                     * 第一次失败后自动走完整鉴权。
+                     */
+
+                    console.log(
+                        "[115] 直接添加失败，尝试完整鉴权"
+                    );
+
+                    getSignAndRetry();
+                }
+            );
+
+
+            // ==============================
+            // 获取 sign/time 后再次添加
+            // ==============================
+
+            function getSignAndRetry() {
+
+                const timestamp = Date.now();
+
+                const signOptions = {
+
+                    url:
+                        "https://115.com/" +
+                        "?ct=offline" +
+                        "&ac=space" +
+                        "&_=" +
+                        timestamp,
+
+                    headers: {
+                        "Cookie": cookie,
+                        "User-Agent": userAgent,
+                        "Accept": "*/*"
+                    }
+                };
+
+
+                $httpClient.get(
+                    signOptions,
+
+                    function(signError, signResponse, signData) {
+
+                        if (signError) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "获取 Sign 失败",
+                                String(signError)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        let signJson;
+
+                        try {
+
+                            signJson =
+                                JSON.parse(signData);
+
+                        } catch (e) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "Sign 返回异常",
+                                signData || String(e)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        if (
+                            !signJson ||
+                            !signJson.sign
+                        ) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "没有获取到 Sign",
+                                JSON.stringify(signJson)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        getUserIdAndRetry(
+                            signJson.sign,
+                            signJson.time || timestamp
+                        );
+                    }
                 );
             }
 
-        } catch (e) {
 
-            console.log(`[115] 返回值解析失败：${e}`);
-            console.log(`[115] 原始返回：${data}`);
+            // ==============================
+            // 获取 UID
+            // ==============================
 
-            $notification.post(
-                "115 UDown",
-                "目录接口返回异常",
-                data || "无返回数据"
-            );
+            function getUserIdAndRetry(sign, time) {
+
+                const options = {
+
+                    url:
+                        "https://webapi.115.com/" +
+                        "offine/downpath",
+
+                    headers: {
+                        "Cookie": cookie,
+                        "User-Agent": userAgent,
+                        "Accept": "*/*"
+                    }
+                };
+
+
+                $httpClient.get(
+                    options,
+
+                    function(error, response, data) {
+
+                        if (error) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "获取 UID 失败",
+                                String(error)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        let json;
+
+                        try {
+
+                            json = JSON.parse(data);
+
+                        } catch (e) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "UID 返回异常",
+                                data || String(e)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        const uid =
+                            json &&
+                            json.data &&
+                            json.data[0] &&
+                            json.data[0].user_id;
+
+
+                        if (!uid) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "未获取到 UID",
+                                JSON.stringify(json)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        createFinalTask(
+                            uid,
+                            sign,
+                            time
+                        );
+                    }
+                );
+            }
+
+
+            // ==============================
+            // 完整参数创建任务
+            // ==============================
+
+            function createFinalTask(
+                uid,
+                sign,
+                time
+            ) {
+
+                const body = [
+
+                    "url=" +
+                        encodeURIComponent(taskUrl),
+
+                    "savepath=",
+
+                    "wp_path_id=" +
+                        TARGET_CID,
+
+                    "uid=" +
+                        encodeURIComponent(uid),
+
+                    "sign=" +
+                        encodeURIComponent(sign),
+
+                    "time=" +
+                        encodeURIComponent(time)
+
+                ].join("&");
+
+
+                const options = {
+
+                    url:
+                        "https://115.com/" +
+                        "web/lixian/" +
+                        "?ct=lixian" +
+                        "&ac=add_task_url",
+
+                    headers: commonHeaders,
+
+                    body: body
+                };
+
+
+                $httpClient.post(
+                    options,
+
+                    function(error, response, data) {
+
+                        if (error) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "请求失败",
+                                String(error)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        let json;
+
+                        try {
+
+                            json = JSON.parse(data);
+
+                        } catch (e) {
+
+                            notify(
+                                "115 离线下载失败",
+                                "返回数据异常",
+                                data || String(e)
+                            );
+
+                            finish();
+                            return;
+                        }
+
+
+                        if (json.state === true) {
+
+                            notify(
+                                "115 离线下载成功",
+                                `已保存到「${TARGET_NAME}」`,
+                                `CID：${TARGET_CID}`
+                            );
+
+                        } else {
+
+                            notify(
+                                "115 离线下载失败",
+                                "115 拒绝任务",
+                                json.error_msg ||
+                                json.error ||
+                                json.message ||
+                                JSON.stringify(json)
+                            );
+                        }
+
+
+                        finish();
+                    }
+                );
+            }
         }
-
-        /*
-         * 等设置目录接口完成之后，
-         * 再允许 UDown 原本的 task_lists 请求继续。
-         */
-        $done({});
-    });
+    }
 }
