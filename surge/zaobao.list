@@ -1,0 +1,20 @@
+# NAME: Lianhe Zaobao
+# DESC: 联合早报 / Lianhe Zaobao
+# UPDATED: 2026-09-07
+
+# > Zaobao Core
+DOMAIN-SUFFIX,zaobao.com.sg
+DOMAIN-SUFFIX,zaobao.com
+DOMAIN-SUFFIX,zaobao.sg
+
+# > SPH Account & Subscription
+DOMAIN,idp.mysph.sph.com.sg
+DOMAIN,subscribe.sph.com.sg
+
+# > Zaobao ePaper
+DOMAIN,epaper.zaobao.com.sg
+
+# > Zaobao Services
+DOMAIN,stock.zaobao.com.sg
+DOMAIN,zshop.zaobao.sg
+DOMAIN-SUFFIX,newslink.sg
