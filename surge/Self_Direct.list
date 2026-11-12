@@ -21,6 +21,7 @@ DOMAIN,cm.bilibili.com
 DOMAIN-KEYWORD,xmancdn
 DOMAIN-KEYWORD,api-huacloud
 DOMAIN-KEYWORD,bochk
+DOMAIN-SUFFIX,apiling.xyz
 
 #IBKR DIRECT
 DOMAIN-SUFFIX,ibkr.com.cn
