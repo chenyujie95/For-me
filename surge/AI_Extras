@@ -1,1 +1,25 @@
+# >> AI 分流补充规则
 
+# ChatGPT - 文件上传、下载及内容资源
+DOMAIN-SUFFIX,oaiusercontent.com
+
+# Claude - Artifacts、内容资源
+DOMAIN-SUFFIX,claudeusercontent.com
+
+# Grok - 相关入口与内容资源
+DOMAIN-SUFFIX,grok.x.com
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN-SUFFIX,groktpcontent.com
+
+# Muse - 核心服务及 Agent 通信
+DOMAIN-SUFFIX,muse.ai
+DOMAIN-SUFFIX,metaaivm.com
+
+# Muse - Meta 账号认证及客户端接口
+DOMAIN,auth.meta.com
+DOMAIN,meta.graph.meta.com
+
+# Devin 服务
+DOMAIN-SUFFIX,devin.ai
+DOMAIN-SUFFIX,cognition.ai
+DOMAIN-SUFFIX,devinapps.com
