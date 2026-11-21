@@ -3,6 +3,11 @@
 # ChatGPT - 文件上传、下载及内容资源
 DOMAIN-SUFFIX,oaiusercontent.com
 
+# ChatGPT 实时通信
+DOMAIN-SUFFIX,chatgpt.livekit.cloud
+DOMAIN-SUFFIX,host.livekit.cloud
+DOMAIN-SUFFIX,turn.livekit.cloud
+
 # Claude - Artifacts、内容资源
 DOMAIN-SUFFIX,claudeusercontent.com
 
@@ -23,3 +28,6 @@ DOMAIN,meta.graph.meta.com
 DOMAIN-SUFFIX,devin.ai
 DOMAIN-SUFFIX,cognition.ai
 DOMAIN-SUFFIX,devinapps.com
+
+# Cursor 官方服务
+DOMAIN-SUFFIX,cursor.com
